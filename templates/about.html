@@ -1,0 +1,167 @@
+{% extends 'base.html' %}
+
+{% block title %}About - CrossMatch{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col text-center">
+        <h1>About CrossMatch</h1>
+        <p class="lead">A robust cross-platform user matching system with privacy-first design.</p>
+    </div>
+</div>
+
+<div class="row mb-5">
+    <div class="col-md-8 offset-md-2">
+        <div class="card">
+            <div class="card-body">
+                <h4>Our Mission</h4>
+                <p>
+                    CrossMatch is designed to identify and match user profiles across different social media platforms
+                    while prioritizing user privacy and data protection. By combining advanced behavioral analysis, content similarity,
+                    and network structure techniques, we provide high-confidence user matching capabilities for applications
+                    that require cross-platform identity resolution.
+                </p>
+                
+                <h4 class="mt-4">Key Features</h4>
+                <div class="row g-4 mb-4">
+                    <div class="col-md-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">Hybrid Matching</h5>
+                                <p class="card-text">
+                                    Combines multiple feature types for more accurate matching than single-feature approaches.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">Privacy Preservation</h5>
+                                <p class="card-text">
+                                    Implements differential privacy and k-anonymity to protect sensitive user data.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">Modular Architecture</h5>
+                                <p class="card-text">
+                                    Flexible, extensible design that supports additional platforms and feature extraction methods.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <h4>Technology Stack</h4>
+                <p>
+                    CrossMatch is built using cutting-edge technologies to provide reliable and accurate matching:
+                </p>
+                <ul>
+                    <li><strong>Feature Extraction:</strong> Natural language processing, temporal pattern analysis, and graph algorithms</li>
+                    <li><strong>Machine Learning:</strong> Random forests, SVMs, and graph convolutional networks</li>
+                    <li><strong>Privacy Techniques:</strong> Differential privacy, k-anonymity, and l-diversity</li>
+                    <li><strong>Web Interface:</strong> Flask, SQLAlchemy, and Bootstrap</li>
+                </ul>
+                
+                <h4 class="mt-4">The Science Behind User Matching</h4>
+                <p>
+                    Our system employs a multi-dimensional approach to user matching:
+                </p>
+                
+                <div class="accordion" id="matchingAccordion">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="behavioralHeading">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#behavioralCollapse" aria-expanded="false" aria-controls="behavioralCollapse">
+                                Behavioral Features
+                            </button>
+                        </h2>
+                        <div id="behavioralCollapse" class="accordion-collapse collapse" aria-labelledby="behavioralHeading" data-bs-parent="#matchingAccordion">
+                            <div class="accordion-body">
+                                <p>
+                                    Behavioral features analyze how users interact with platforms, including:
+                                </p>
+                                <ul>
+                                    <li>Temporal patterns (time of day, day of week activity)</li>
+                                    <li>Posting frequency and regularity</li>
+                                    <li>Engagement metrics (like/comment ratios)</li>
+                                    <li>Content type distributions</li>
+                                </ul>
+                                <p>
+                                    These patterns form a distinctive "behavioral fingerprint" that often persists across platforms.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="contentHeading">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#contentCollapse" aria-expanded="false" aria-controls="contentCollapse">
+                                Content Features
+                            </button>
+                        </h2>
+                        <div id="contentCollapse" class="accordion-collapse collapse" aria-labelledby="contentHeading" data-bs-parent="#matchingAccordion">
+                            <div class="accordion-body">
+                                <p>
+                                    Content features focus on what users create across platforms:
+                                </p>
+                                <ul>
+                                    <li>Writing style (linguistic patterns, vocabulary)</li>
+                                    <li>Topic preferences and interests</li>
+                                    <li>Semantic embeddings of user-generated content</li>
+                                    <li>Content sentiment and emotion patterns</li>
+                                </ul>
+                                <p>
+                                    Advanced NLP models like BERT and sentence transformers help capture these patterns.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="networkHeading">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#networkCollapse" aria-expanded="false" aria-controls="networkCollapse">
+                                Network Features
+                            </button>
+                        </h2>
+                        <div id="networkCollapse" class="accordion-collapse collapse" aria-labelledby="networkHeading" data-bs-parent="#matchingAccordion">
+                            <div class="accordion-body">
+                                <p>
+                                    Network features analyze the social connections between users:
+                                </p>
+                                <ul>
+                                    <li>Community detection and membership</li>
+                                    <li>Centrality measures within social graphs</li>
+                                    <li>Interaction patterns with other users</li>
+                                    <li>Friend/follower network overlap</li>
+                                </ul>
+                                <p>
+                                    Graph algorithms like Louvain community detection help identify structural similarities.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <h4 class="mt-4">Privacy and Ethics</h4>
+                <p>
+                    CrossMatch is designed with privacy as a core principle. We implement:
+                </p>
+                <ul>
+                    <li>Differential privacy to add controlled noise to sensitive data</li>
+                    <li>K-anonymity to ensure users cannot be uniquely identified</li>
+                    <li>L-diversity to protect against attribute disclosure attacks</li>
+                    <li>Secure API credential storage</li>
+                    <li>Data minimization practices</li>
+                </ul>
+                <p>
+                    We believe in responsible use of matching technology and encourage users to follow ethical guidelines when using our system.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

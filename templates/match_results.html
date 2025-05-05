@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+{% block title %}Match Results - CrossMatch{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col">
+        <h1>Match Results</h1>
+        <p class="lead">
+            Showing potential matching profiles from {{ result.platform2 | title }} 
+            for {{ result.platform1_user }} on {{ result.platform1 | title }}.
+        </p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Matching Profiles</h5>
+            </div>
+            <div class="card-body">
+                {% if result.matches and result.matches|length > 0 %}
+                    {% for match in result.matches %}
+                    <div class="match-result mb-4">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <h5 class="mb-0">{{ match.platform2_user }}</h5>
+                            <span class="badge bg-{% if match.confidence_score > 0.8 %}success{% elif match.confidence_score > 0.5 %}warning{% else %}danger{% endif %} confidence-badge">
+                                {{ (match.confidence_score * 100)|round|int }}% Confidence
+                            </span>
+                        </div>
+                        
+                        <div class="card bg-dark">
+                            <div class="card-header">
+                                <h6 class="mb-0">Matching Features</h6>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                {% for feature in match.matched_features %}
+                                <li class="list-group-item">{{ feature | title }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                <div class="alert alert-warning">
+                    <h6 class="alert-heading">No matches found!</h6>
+                    <p class="mb-0">We couldn't find any matching profiles for this user on {{ result.platform2 | title }}. Try with a different platform or username.</p>
+                </div>
+                {% endif %}
+            </div>
+            <div class="card-footer">
+                <div class="d-flex justify-content-between">
+                    <a href="{{ url_for('match') }}" class="btn btn-primary">New Match</a>
+                    <a href="{{ url_for('dashboard') }}" class="btn btn-outline-secondary">Back to Dashboard</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-header bg-dark">
+                <h5 class="mb-0">Match Details</h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <h6>Source Platform</h6>
+                    <p>{{ result.platform1 | title }}</p>
+                </div>
+                <div class="mb-3">
+                    <h6>Source Username</h6>
+                    <p>{{ result.platform1_user }}</p>
+                </div>
+                <div class="mb-3">
+                    <h6>Target Platform</h6>
+                    <p>{{ result.platform2 | title }}</p>
+                </div>
+                <div class="mb-3">
+                    <h6>Matched Profiles</h6>
+                    <p>{{ result.matches|length }}</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header bg-dark">
+                <h5 class="mb-0">Understanding Results</h5>
+            </div>
+            <div class="card-body">
+                <p class="mb-0">
+                    <strong>Confidence score</strong> indicates the probability that the profiles belong to the same user:
+                </p>
+                <ul class="list-unstyled">
+                    <li><span class="badge bg-success">80%+</span> High confidence</li>
+                    <li><span class="badge bg-warning">50-79%</span> Medium confidence</li>
+                    <li><span class="badge bg-danger">&lt;50%</span> Low confidence</li>
+                </ul>
+                <p class="mb-0">
+                    <strong>Matching features</strong> show the types of signals that contributed to the match:
+                </p>
+                <ul class="mb-0">
+                    <li>Content similarity (writing style, topics)</li>
+                    <li>Posting patterns (temporal behavior)</li>
+                    <li>Social connections (network overlap)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

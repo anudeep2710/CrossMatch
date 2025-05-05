@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard - CrossMatch{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col">
+        <h1>Dashboard</h1>
+        <p class="lead">Manage your platforms and view matching history.</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-header bg-dark">
+                <h5 class="mb-0">Configured Platforms</h5>
+            </div>
+            <div class="card-body">
+                {% if has_platforms %}
+                <ul class="list-group list-group-flush">
+                    {% for platform in platforms %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        {{ platform }}
+                        <div>
+                            <a href="{{ url_for('configure_platform', platform=platform) }}" class="btn btn-sm btn-outline-primary">Edit</a>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <p>No platforms configured yet.</p>
+                {% endif %}
+            </div>
+            <div class="card-footer">
+                <div class="d-grid">
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                            Add Platform
+                        </button>
+                        <ul class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton">
+                            <li><a class="dropdown-item" href="{{ url_for('configure_platform', platform='instagram') }}">Instagram</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('configure_platform', platform='twitter') }}">Twitter</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('configure_platform', platform='facebook') }}">Facebook</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('configure_platform', platform='linkedin') }}">LinkedIn</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header bg-dark">
+                <h5 class="mb-0">Quick Actions</h5>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    <a href="{{ url_for('match') }}" class="btn btn-primary {% if not has_platforms %}disabled{% endif %}">Match Users</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header bg-dark">
+                <h5 class="mb-0">Recent Match Results</h5>
+            </div>
+            <div class="card-body">
+                {% if matches %}
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Source Platform</th>
+                                <th>Source User</th>
+                                <th>Target Platform</th>
+                                <th>Target User</th>
+                                <th>Confidence</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for match in matches %}
+                            <tr>
+                                <td>{{ match.timestamp.strftime('%Y-%m-%d %H:%M') }}</td>
+                                <td>{{ match.platform1 }}</td>
+                                <td>{{ match.platform1_user_id }}</td>
+                                <td>{{ match.platform2 }}</td>
+                                <td>{{ match.platform2_user_id }}</td>
+                                <td>
+                                    <div class="badge rounded-pill {% if match.confidence_score > 0.8 %}bg-success{% elif match.confidence_score > 0.5 %}bg-warning{% else %}bg-danger{% endif %}">
+                                        {{ (match.confidence_score * 100)|round|int }}%
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <p>No matching results yet. Start by setting up your platforms and performing a match.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

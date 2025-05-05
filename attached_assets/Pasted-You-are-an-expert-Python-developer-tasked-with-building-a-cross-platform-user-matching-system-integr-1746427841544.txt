@@ -1,0 +1,39 @@
+You are an expert Python developer tasked with building a cross-platform user matching system integrating behavior and structure‑based approaches.
+
+The system will ingest anonymized user activity and social graph data from Instagram, Twitter, and Facebook via their public APIs.
+
+Implement modular Python packages: data_ingest, preprocess, behavior_features, content_features, network_features, feature_fusion, models, privacy, evaluate, and utils.
+
+data_ingest.py should fetch posts, interactions, and follower lists, handle rate limits, retries, and store JSON payloads in a raw_data/ folder.
+
+preprocess.py must clean timestamps, normalize text (lowercase, strip punctuation), anonymize user IDs, and convert edge lists into networkx Graph objects.
+
+behavior_features.py will compute features like posting frequency histograms, hourly activity distributions, and engagement ratios (likes/comments per post).
+
+content_features.py should generate text embeddings using a pretrained transformer (e.g. SentenceTransformers), then derive topic distributions via LDA or clustering.
+
+network_features.py must compute graph metrics (degree, betweenness, closeness centrality), detect communities via Louvain, and extract ego‑network stats.
+
+feature_fusion.py must concatenate behavioral, content, and structural feature vectors and apply PCA or UMAP for dimensionality reduction and alignment.
+
+models.py will define scikit‑learn pipelines for RandomForestClassifier and SVM, plus a Graph Neural Network (e.g. GCN) using PyTorch Geometric for link prediction.
+
+privacy.py should integrate differential privacy (e.g. Google DP library) to add calibrated noise to features and enforce k‑anonymity thresholds.
+
+evaluate.py will load ground‑truth mappings, run train/test splits, and report accuracy, precision, recall, F1‑score, and plot ROC/PR curves.
+
+utils.py must include YAML config parsing, centralized logging setup, and serialization helpers using pickle or joblib.
+
+Provide a config.yaml schema specifying API credentials, data directories, model hyperparameters, privacy budgets (epsilon, delta), and logging levels.
+
+Add unit tests under tests/ for each module using pytest, with fixtures mocking API responses and synthetic network graphs.
+
+Create Jupyter notebooks in notebooks/ for exploratory data analysis: feature distributions, correlation heatmaps, and ablation studies.
+
+Use Python type hints, comprehensive docstrings, and enforce PEP8 with flake8; include a Makefile with targets: lint, test, run, and clean.
+
+Outline a GitHub Actions CI workflow (.github/workflows/ci.yml) to run linting, tests, and build a Docker image on each PR.
+
+Containerize the application with a Dockerfile that installs dependencies, copies code, and defines an entrypoint to run the full pipeline.
+
+Document everything in README.md: project overview, architecture diagram, setup steps, module descriptions, example commands, and expected outputs.

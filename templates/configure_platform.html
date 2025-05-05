@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+
+{% block title %}Configure {{ platform_name | title }} - CrossMatch{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col">
+        <h1>Configure {{ platform_name | title }}</h1>
+        <p class="lead">Enter your API credentials to enable user matching on {{ platform_name | title }}.</p>
+    </div>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">{{ platform_name | title }} API Credentials</h5>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('configure_platform') }}">
+                    <input type="hidden" name="platform_name" value="{{ platform_name }}">
+                    
+                    {% if platform_name == 'instagram' %}
+                    <div class="mb-3">
+                        <label for="client_id" class="form-label">Client ID</label>
+                        <input type="text" class="form-control" id="client_id" name="client_id" value="{{ platform.client_id if platform else '' }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="client_secret" class="form-label">Client Secret</label>
+                        <input type="password" class="form-control" id="client_secret" name="client_secret" value="{{ platform.client_secret if platform else '' }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="access_token" class="form-label">Access Token</label>
+                        <input type="password" class="form-control" id="access_token" name="access_token" value="{{ platform.access_token if platform else '' }}">
+                    </div>
+                    
+                    {% elif platform_name == 'twitter' %}
+                    <div class="mb-3">
+                        <label for="api_key" class="form-label">API Key</label>
+                        <input type="text" class="form-control" id="api_key" name="api_key" value="{{ platform.api_key if platform else '' }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="api_secret" class="form-label">API Secret</label>
+                        <input type="password" class="form-control" id="api_secret" name="api_secret" value="{{ platform.api_secret if platform else '' }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="bearer_token" class="form-label">Bearer Token</label>
+                        <input type="password" class="form-control" id="bearer_token" name="bearer_token" value="{{ platform.bearer_token if platform else '' }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="access_token" class="form-label">Access Token</label>
+                        <input type="password" class="form-control" id="access_token" name="access_token" value="{{ platform.access_token if platform else '' }}">
+                    </div>
+                    
+                    {% elif platform_name == 'facebook' %}
+                    <div class="mb-3">
+                        <label for="client_id" class="form-label">App ID</label>
+                        <input type="text" class="form-control" id="client_id" name="client_id" value="{{ platform.client_id if platform else '' }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="client_secret" class="form-label">App Secret</label>
+                        <input type="password" class="form-control" id="client_secret" name="client_secret" value="{{ platform.client_secret if platform else '' }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="access_token" class="form-label">Access Token</label>
+                        <input type="password" class="form-control" id="access_token" name="access_token" value="{{ platform.access_token if platform else '' }}">
+                    </div>
+                    
+                    {% elif platform_name == 'linkedin' %}
+                    <div class="mb-3">
+                        <label for="client_id" class="form-label">Client ID</label>
+                        <input type="text" class="form-control" id="client_id" name="client_id" value="{{ platform.client_id if platform else '' }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="client_secret" class="form-label">Client Secret</label>
+                        <input type="password" class="form-control" id="client_secret" name="client_secret" value="{{ platform.client_secret if platform else '' }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="access_token" class="form-label">Access Token</label>
+                        <input type="password" class="form-control" id="access_token" name="access_token" value="{{ platform.access_token if platform else '' }}">
+                    </div>
+                    
+                    {% else %}
+                    <div class="mb-3">
+                        <label for="api_key" class="form-label">API Key</label>
+                        <input type="text" class="form-control" id="api_key" name="api_key" value="{{ platform.api_key if platform else '' }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="access_token" class="form-label">Access Token</label>
+                        <input type="password" class="form-control" id="access_token" name="access_token" value="{{ platform.access_token if platform else '' }}">
+                    </div>
+                    {% endif %}
+                    
+                    <div class="d-flex justify-content-between">
+                        <a href="{{ url_for('dashboard') }}" class="btn btn-secondary">Cancel</a>
+                        <button type="submit" class="btn btn-primary">Save Configuration</button>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer">
+                <div class="alert alert-info mb-0">
+                    <h6 class="alert-heading">How to get {{ platform_name | title }} API credentials:</h6>
+                    <ul class="mb-0">
+                        {% if platform_name == 'instagram' %}
+                        <li>Visit the <a href="https://developers.facebook.com" target="_blank">Facebook Developer Portal</a></li>
+                        <li>Create a new app and add the Instagram Basic Display product</li>
+                        <li>Configure your app settings and obtain the client ID and secret</li>
+                        <li>Follow OAuth flow to generate an access token</li>
+                        {% elif platform_name == 'twitter' %}
+                        <li>Visit the <a href="https://developer.twitter.com" target="_blank">Twitter Developer Portal</a></li>
+                        <li>Create a new project and app</li>
+                        <li>Navigate to "Keys and tokens" to find your API key and secret</li>
+                        <li>Generate access token and bearer token from the same page</li>
+                        {% elif platform_name == 'facebook' %}
+                        <li>Visit the <a href="https://developers.facebook.com" target="_blank">Facebook Developer Portal</a></li>
+                        <li>Create a new app and add the required products</li>
+                        <li>Find your App ID and App Secret in the app settings</li>
+                        <li>Generate an access token with the required permissions</li>
+                        {% elif platform_name == 'linkedin' %}
+                        <li>Visit the <a href="https://www.linkedin.com/developers" target="_blank">LinkedIn Developer Portal</a></li>
+                        <li>Create a new app</li>
+                        <li>Configure OAuth settings and permissions</li>
+                        <li>Obtain client ID, client secret, and generate an access token</li>
+                        {% else %}
+                        <li>Visit the {{ platform_name | title }} developer portal</li>
+                        <li>Create a new application</li>
+                        <li>Configure the necessary settings and permissions</li>
+                        <li>Obtain API credentials</li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

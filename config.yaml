@@ -1,0 +1,107 @@
+# Cross-Platform User Matching System Configuration
+
+# API credentials
+api:
+  instagram:
+    client_id: ${INSTAGRAM_CLIENT_ID}
+    client_secret: ${INSTAGRAM_CLIENT_SECRET}
+    access_token: ${INSTAGRAM_ACCESS_TOKEN}
+    rate_limit: 200  # requests per hour
+    
+  twitter:
+    api_key: ${TWITTER_API_KEY}
+    api_secret: ${TWITTER_API_SECRET}
+    bearer_token: ${TWITTER_BEARER_TOKEN}
+    access_token: ${TWITTER_ACCESS_TOKEN}
+    access_secret: ${TWITTER_ACCESS_SECRET}
+    rate_limit: 450  # requests per 15-min window
+    
+  facebook:
+    app_id: ${FACEBOOK_APP_ID}
+    app_secret: ${FACEBOOK_APP_SECRET}
+    access_token: ${FACEBOOK_ACCESS_TOKEN}
+    rate_limit: 200  # requests per hour
+
+# Data directories
+directories:
+  raw_data: ./raw_data
+  processed_data: ./processed_data
+  models: ./models
+  results: ./results
+
+# Preprocessing parameters
+preprocessing:
+  min_posts_per_user: 5
+  max_posts_per_user: 1000
+  language: "en"
+  text_cleaning:
+    remove_urls: true
+    remove_mentions: true
+    remove_hashtags: false
+    lowercase: true
+    remove_punctuation: true
+    lemmatize: true
+
+# Feature extraction parameters
+features:
+  behavior:
+    time_window: 90  # days
+    temporal_granularity: "hour"
+    activity_types: ["post", "comment", "like", "share"]
+    
+  content:
+    embedding_model: "sentence-transformers/all-MiniLM-L6-v2"
+    max_tokens: 512
+    lda_topics: 20
+    
+  network:
+    max_followers: 5000
+    community_algorithm: "louvain"
+    centrality_metrics: ["degree", "betweenness", "closeness", "eigenvector"]
+
+# Feature fusion parameters
+fusion:
+  dimensionality_reduction: "pca"
+  explained_variance: 0.95
+  embedding_dim: 128
+
+# Model parameters
+models:
+  random_forest:
+    n_estimators: 100
+    max_depth: 20
+    random_state: 42
+    
+  svm:
+    kernel: "rbf"
+    C: 1.0
+    gamma: "scale"
+    random_state: 42
+    
+  gcn:
+    hidden_channels: [128, 64]
+    dropout: 0.2
+    learning_rate: 0.01
+    epochs: 200
+    patience: 20
+    batch_size: 64
+
+# Privacy parameters
+privacy:
+  enable_differential_privacy: true
+  epsilon: 1.0
+  delta: 1e-5
+  k_anonymity: 5
+  l_diversity: 3
+
+# Evaluation parameters
+evaluation:
+  train_test_split: 0.8
+  cross_validation_folds: 5
+  metrics: ["accuracy", "precision", "recall", "f1"]
+  
+# Logging configuration
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR, CRITICAL
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "user_matching.log"
